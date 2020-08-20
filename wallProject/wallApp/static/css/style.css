@@ -1,0 +1,34 @@
+
+
+#header{
+    display: flex;
+
+}
+
+h1{
+    width: 300px;
+}
+
+#mid{
+    margin-left: 500px;
+}
+
+#link{
+    margin-top: 15px;
+    margin-left: 50px;
+}
+
+input{
+    height: 100px;
+    width: 1000px;
+}
+
+#blue{
+    background-color: darkblue;
+    margin-left: 900px;
+}
+
+#green{
+    background-color: darkgreen;
+    margin-left: 900px;
+}

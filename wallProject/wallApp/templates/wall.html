@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+</head>
+<body>
+    <div id="header">
+        <h1>CodingDojo Wall</h1>
+        <p id="mid">Welcome, {{ user.first_name}}</p>
+        <a id="link" href="/logout">Log off</a>
+    </div>
+    
+    <form id = "msg" action ="/postm" method="post">
+        {% csrf_token %}
+        <div>
+            <h2>Post a message</h2>
+            <input type="text" name="message" /><br/>
+            <button id="blue" type="submit">Post a message</button>
+        </div>
+    </form>
+    {% for msg in all_messages %}
+    <h3>{{ msg.user.first_name }} {{ msg.user.last_name }} -{{ msg.created_at }}</h3>
+    <p>{{ msg.message }}</p>
+    {% if msg.user.id == request.session.user_id %}
+        <a href="/message/{{msg.id}}/delete">Delete Your Message</a>
+    {% endif %}
+        {% for cmt in msg.comments.all %}
+        <h3>{{ cmt.user.first_name }} {{ cmt.user.last_name }} -{{ cmt.created_at }}</h3>
+        <p>{{ cmt.comment }}</p>
+
+
+        {% endfor %}
+        <form action ="/postc" method="post">
+            <div>
+            {% csrf_token %}
+            <h2>Post a comment</h2>
+            <input type="text" name="comment" />
+            <input type="hidden" name="msg_id" value={{ msg.id }}><br/>
+            <button id="green" type="submit">Post a comment</button>
+            </div>
+            
+        </form>
+    {%endfor%}
+</body>
+</html>
